@@ -1,49 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import LoadingIndicator from './LoadingIndicator';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/FavoritesList.scss';
+import HomeIcon from '@material-ui/icons/Home';
+import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import '../styles/FavoritesList.scss';
 
-
-const FavoriteList = () => {
-  const [favorites, setFavorites] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const favoritesFromLocalStorage = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setFavorites(favoritesFromLocalStorage);
-    setLoading(false);
-  }, []);
-
-  const handleRemoveFavoriteClick = (image) => {
-    const newFavorites = favorites.filter((fav) => fav !== image);
-    setFavorites(newFavorites);
-    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+const FavoritesList = ({ favorites, setFavorites }) => {
+  const handleRemoveFavorite = (image) => {
+    const updatedFavorites = favorites.filter((favorite) => favorite !== image);
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
-  if (loading) {
-    return <LoadingIndicator />;
-  }
-
   return (
-    <div>
+    <div className="favorites-list">
       <h1>Favoritos</h1>
-      {favorites.length > 0 ? (
-        <div className="image-grid">
-          {favorites.map((image) => (
-            <div key={image} className="image-block favorite">
-              <img src={image} alt="Favorite" />
-              <button onClick={() => handleRemoveFavoriteClick(image)}>
+      <IconButton component={Link} to="/">
+        <HomeIcon />
+      </IconButton>
+      <div className="favorites-grid">
+        {favorites.map((image, index) => (
+          <div key={index} className="favorite-image-container">
+            <img src={image} alt="Dog" className="favorite-image" />
+            <button onClick={() => handleRemoveFavorite(image)}>
+              {favorites.includes(image) ? (
                 <FavoriteIcon style={{ color: 'red' }} />
-              </button>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No tienes imágenes favoritas.</p>
-      )}
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default FavoriteList;
+export default FavoritesList;

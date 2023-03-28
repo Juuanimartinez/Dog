@@ -12,7 +12,8 @@ const AppRoutes = ({ favorites, setFavorites }) => {
       <Route path="/sub-breeds/:breed" element={<SubBreedList favorites={favorites} setFavorites={setFavorites} />} />
       <Route path="/sub-breeds/:breed/:subBreed" element={<BreedImages favorites={favorites} setFavorites={setFavorites} />} />
       <Route path="/breed/:breed/images" element={<BreedImages favorites={favorites} setFavorites={setFavorites} />} />
-      <Route path="/favorites" element={<FavoritesList favorites={favorites} />} />
+      <Route path="/favorites" element={<FavoritesList favorites={favorites} setFavorites={setFavorites} />} />
+
     </Routes>
   );
 };
