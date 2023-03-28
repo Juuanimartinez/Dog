@@ -1,0 +1,24 @@
+// styles/LoadingIndicator.scss
+@import './variables';
+$background-color: #ffe0e9; // Color rosa claro
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color; // Agregar esta línea
+
+
+  p {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
