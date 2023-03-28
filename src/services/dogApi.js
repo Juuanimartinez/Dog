@@ -6,12 +6,14 @@ export const getBreeds = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/breeds/list/all`);
     console.log('API Response:', response.data.message);
-    return response.data.message;
+    const breedsArray = Object.keys(response.data.message);
+    return breedsArray;
   } catch (error) {
     console.error('Error fetching breeds:', error);
     return [];
   }
 };
+
 
 export const getSubBreeds = async (breed) => {
   try {
